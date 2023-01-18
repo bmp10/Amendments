@@ -84,18 +84,23 @@ document.addEventListener('keydown', function(e) {
 })
 
 setInterval(function() {
-    let diff = scrolltime - containers[targettimeindex].time
-    window.scrollBy(0, -2 * diff)
+    let diff = containers[targettimeindex].time - scrolltime
+    let diffpercent = diff / containers[0].time
+    window.scrollBy(0, scrollpercenttoamt(diffpercent) / 15)
 })
+
+function scrollpercenttoamt(percent) {
+    return percent * (document.documentElement.scrollHeight - document.documentElement.clientHeight)
+}
 
 function onscroll() {
     scrollamt = document.scrollingElement.scrollTop
 
-    let scrollpercent = (containers[0].time / 100) * scrollamt / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
-    scrolltime = scrollpercent * 100
+    let scrollpercent = scrollamt / (document.documentElement.scrollHeight - document.documentElement.clientHeight)
+    scrolltime = scrollpercent * containers[0].time
 
     containers.forEach(function(val) {
-        let n = ((1 + scrollpercent - val.time / 100) % 1)
+        let n = ((1 + (scrolltime - val.time) / 100) % 1)
         let ndeg = (n * 360) + "deg"
         val.style["-webkit-transform"] = "rotate3d(0, -1, 0, " + ndeg + ") translate3d(0px, " + (-scrolltime * verticalspread) + "px, 200px)"
     })
