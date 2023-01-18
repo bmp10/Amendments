@@ -1,0 +1,7 @@
+.outer {
+    top: 50%;
+    left: 50%;
+    perspective: 400px;
+    perspective-origin: 50% 0px;
+    position: fixed;
+}
