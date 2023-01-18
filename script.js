@@ -68,7 +68,7 @@ document.body.style.height = ((containers[0].time * verticalspread * 20)) + 'px'
 
 let times = containers.map((val) => val.time)
 
-let targettimeindex = 0
+let targettimeindex = containers.length - 1
 let scrollamt
 let scrolltime
 
